@@ -1,5 +1,5 @@
 locals {
-  postfix_name = "${var.vpc_name}-${var.environment}"
+  postfix_name = "${var.vpc_name}"
 
   common_tags = {
     Project     = var.project_name
@@ -14,7 +14,7 @@ variable "project_name" {
 
 variable "environment" {
   type        = string
-  description = "project environment production or development or staging"
+  description = "project environment prod, dev, stag"
 }
 
 variable "vpc_name" {
