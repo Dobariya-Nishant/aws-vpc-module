@@ -1,5 +1,5 @@
 locals {
-  postfix_name = "${var.vpc_name}"
+  postfix_name = var.vpc_name
 
   common_tags = {
     Project     = var.project_name
