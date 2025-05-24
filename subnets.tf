@@ -1,4 +1,4 @@
-resource "aws_subnet" "public_subnets" {
+resource "aws_subnet" "public" {
   count = length(var.public_subnets)
 
   vpc_id            = aws_vpc.vpc.id
@@ -8,12 +8,12 @@ resource "aws_subnet" "public_subnets" {
   tags = merge(
     local.common_tags,
     {
-      Name = "pub-sub-${local.postfix_name}-${element(var.availability_zones, count.index % length(var.availability_zones))}"
+      Name = "${local.pre_fix}-pub-sub-${element(var.availability_zones, count.index % length(var.availability_zones))}"
     }
   )
 }
 
-resource "aws_subnet" "private_subnets" {
+resource "aws_subnet" "private" {
   count = length(var.private_subnets)
 
   vpc_id            = aws_vpc.vpc.id
@@ -23,7 +23,7 @@ resource "aws_subnet" "private_subnets" {
   tags = merge(
     local.common_tags,
     {
-      Name = "pvt-sub-${local.postfix_name}-${element(var.availability_zones, count.index % length(var.availability_zones))}"
+      Name = "${local.pre_fix}-pvt-sub-${element(var.availability_zones, count.index % length(var.availability_zones))}"
     }
   )
 }

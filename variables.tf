@@ -1,5 +1,5 @@
 locals {
-  postfix_name = var.vpc_name
+  pre_fix = var.vpc_name
 
   common_tags = {
     Project     = var.project_name
@@ -9,40 +9,40 @@ locals {
 
 variable "project_name" {
   type        = string
-  description = "project name"
+  description = "The name of the project this infrastructure is associated with. Used for naming and tagging resources."
 }
 
 variable "environment" {
   type        = string
-  description = "project environment prod, dev, stag"
+  description = "The deployment environment (e.g., dev, staging, prod). Helps differentiate resources across environments."
 }
 
 variable "vpc_name" {
   type        = string
-  description = "VPC name"
+  description = "The name assigned to the Virtual Private Cloud (VPC). Used in resource naming and tagging."
 }
 
 variable "cidr_block" {
   type        = string
-  description = "VPC cidr block"
+  description = "The CIDR block for the VPC (e.g., 10.0.0.0/16). Defines the IP address range for the VPC."
 }
 
 variable "public_subnets" {
   type        = list(string)
-  description = "list of public subnet cidr"
+  description = "A list of CIDR blocks for public subnets. These subnets are intended for resources that must be accessible from the internet."
   default     = []
 }
 
 variable "private_subnets" {
   type        = list(string)
-  description = "list of private subnet cidr"
+  description = "A list of CIDR blocks for private subnets. These subnets are for internal resources that do not require direct access from the internet."
   default     = []
 }
 
 variable "enable_nat_gateway" {
   type        = bool
   default     = false
-  description = "enable NAT gateway"
+  description = "Boolean flag to enable or disable the creation of a NAT Gateway. Requires at least one public subnet if set to true."
 
   validation {
     condition     = !(var.enable_nat_gateway == true && length(var.public_subnets) == 0)
@@ -52,5 +52,5 @@ variable "enable_nat_gateway" {
 
 variable "availability_zones" {
   type        = list(string)
-  description = "list of availability zones"
+  description = "A list of availability zones to distribute the subnets across. Enhances availability and fault tolerance."
 }

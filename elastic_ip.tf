@@ -5,7 +5,7 @@ resource "aws_eip" "nat" {
   tags = merge(
     local.common_tags,
     {
-      Name = "nat-gw-eip-${local.postfix_name}"
+      Name = "${local.pre_fix}-nat-gw-eip"
     }
   )
 }

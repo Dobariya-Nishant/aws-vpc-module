@@ -1,4 +1,4 @@
-resource "aws_internet_gateway" "internet_gateway" {
+resource "aws_internet_gateway" "internet" {
   count = length(var.public_subnets) > 0 ? 1 : 0
 
   vpc_id = aws_vpc.vpc.id
@@ -6,12 +6,12 @@ resource "aws_internet_gateway" "internet_gateway" {
   tags = merge(
     local.common_tags,
     {
-      Name = "int-gw-${local.postfix_name}"
+      Name = "${local.pre_fix}-int-gw"
     }
   )
 }
 
-resource "aws_nat_gateway" "nat_gateway" {
+resource "aws_nat_gateway" "nat" {
   count = var.enable_nat_gateway == true ? 1 : 0
 
   subnet_id     = aws_subnet.public_subnets[0].id
@@ -20,7 +20,7 @@ resource "aws_nat_gateway" "nat_gateway" {
   tags = merge(
     local.common_tags,
     {
-      Name = "nat-gw-${local.postfix_name}"
+      Name = "${local.pre_fix}-nat-gw"
     }
   )
 }
