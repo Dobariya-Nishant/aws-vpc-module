@@ -14,7 +14,7 @@ resource "aws_internet_gateway" "internet" {
 resource "aws_nat_gateway" "nat" {
   count = var.enable_nat_gateway == true ? 1 : 0
 
-  subnet_id     = aws_subnet.public_subnets[0].id
+  subnet_id     = aws_subnet.public[0].id
   allocation_id = aws_eip.nat[0].id
 
   tags = merge(
