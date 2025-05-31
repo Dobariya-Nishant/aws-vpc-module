@@ -1,5 +1,5 @@
 locals {
-  pre_fix = var.vpc_name
+  pre_fix = var.name
 
   common_tags = {
     Project     = var.project_name
@@ -17,7 +17,7 @@ variable "environment" {
   description = "The deployment environment (e.g., dev, staging, prod). Helps differentiate resources across environments."
 }
 
-variable "vpc_name" {
+variable "name" {
   type        = string
   description = "The name assigned to the Virtual Private Cloud (VPC). Used in resource naming and tagging."
 }
